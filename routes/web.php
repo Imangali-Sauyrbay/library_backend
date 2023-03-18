@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,11 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $r = rand(0, 100);
 
-    if($r > 75) {
+    if ($r > 75) {
         return response()->file(storage_path('app/img.jpg'));
     }
 
-    if($r > 50) {
+    if ($r > 50) {
         return response()->file(storage_path('app/arjunphp_laravel.png'));
     }
 

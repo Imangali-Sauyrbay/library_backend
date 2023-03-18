@@ -1,4 +1,4 @@
-FROM php:fpm-alpine3.17
+FROM php:8.1.17-fpm-alpine3.17
 
 WORKDIR /var/www
 
@@ -36,7 +36,7 @@ RUN rm /var/cache/apk/*
 
 COPY composer.json composer.lock ./
 
-RUN composer install --no-dev --no-scripts --no-autoloader --no-progress --no-suggest \
+RUN composer install --no-dev --no-scripts --no-autoloader --no-progress \
     && rm -rf /root/.composer/cache
 
 CMD ["php", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--port=80"]

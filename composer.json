@@ -18,7 +18,8 @@
         "laravel/pint": "^1.0",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
-        "phpunit/phpunit": "^10.0",
+        "nunomaduro/phpinsights": "^2.8",
+        "phpunit/phpunit": "^9.6.5",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
@@ -61,7 +62,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "minimum-stability": "stable",
