@@ -3,10 +3,11 @@
 
 npm test
 
-if [ "$(docker ps -a -q -f name=backend_lib)" ] then
+if [ "$(docker ps -a -q -f name=backend_lib)" ] 
+then
     echo 'running in docker...'
     docker exec -t backend_lib php artisan insights --fix --no-interaction
-else then
+else
     echo 'running locally...'
     php artisan insights --fix --no-interaction
 fi
