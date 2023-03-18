@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $r = rand(0, 100);
+
+    if($r > 75) {
+        return response()->file(storage_path('app/img.jpg'));
+    }
+
+    if($r > 50) {
+        return response()->file(storage_path('app/arjunphp_laravel.png'));
+    }
+
+    return '<h1 style="text-align:center">Hello World with 50% chance!!!</h1>';
 });

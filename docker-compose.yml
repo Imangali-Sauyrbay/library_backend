@@ -1,0 +1,33 @@
+version: '3'
+services:
+  db:
+    image: postgres:alpine
+    restart: unless-stopped
+    container_name: postgre_lib
+    ports:
+      - '5432:5432'
+    env_file: .env
+    volumes:
+      - ./storage/volumes/postgres/data:/var/lib/postgresql/data
+      - ./storage/volumes/postgres/initial_sql/initial_db.sql:/docker-entrypoint-initdb.d/create_schemas.sql
+    networks:
+      -  postgre-network
+
+  api:
+    build:
+      context: ./
+      dockerfile: ./docker/swoole/Dockerfile
+    container_name: backend_lib
+    restart: unless-stopped
+    volumes:
+      -  ./:/var/www
+      -  ./docker/swoole/extend-php.ini:/usr/local/etc/php/conf.d/extend-php.ini
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+    networks:
+      -  postgre-network
+
+networks:
+  postgre-network:
