@@ -2,4 +2,11 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npm test
-php artisan insights --fix
+
+if [ "$(docker ps -a -q -f name=backend_lib)" ] then
+    echo 'running in docker...'
+    docker exec -t backend_lib php artisan insights --fix --no-interaction
+else then
+    echo 'running locally...'
+    php artisan insights --fix --no-interaction
+fi
