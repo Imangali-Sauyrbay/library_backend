@@ -10,6 +10,7 @@ module.exports = {
         'misc',
         'improve',
         'introduce',
+        'implement',
       ],
       name: ['[a-z0-9-]+'],
     },
