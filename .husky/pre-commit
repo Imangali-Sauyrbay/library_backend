@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm test
+
+if [ "$(docker ps -a -q -f name=backend_lib)" ] 
+then
+    echo 'running in docker...'
+    docker exec -t backend_lib php artisan insights --fix --no-interaction
+else
+    echo 'running locally...'
+    php artisan insights --fix --no-interaction
+fi

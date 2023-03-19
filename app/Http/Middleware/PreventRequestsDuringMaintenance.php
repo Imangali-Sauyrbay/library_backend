@@ -12,6 +12,6 @@ class PreventRequestsDuringMaintenance extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        // The URIs that should be reachable while maintenance mode is enabled.
     ];
 }
