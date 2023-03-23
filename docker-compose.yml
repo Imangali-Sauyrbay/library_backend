@@ -18,6 +18,7 @@ services:
       context: ./
       dockerfile: ./docker/Dockerfile
     container_name: backend_lib
+    user: ${UID}:${GID}
     restart: unless-stopped
     volumes:
       -  ./:/var/www
