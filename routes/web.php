@@ -19,7 +19,7 @@ Route::get('/', function () {
     if ($r > 75) {
         return response()->file(storage_path('app/img.jpg'));
     }
-
+    
     if ($r > 50) {
         return response()->file(storage_path('app/arjunphp_laravel.png'));
     }
