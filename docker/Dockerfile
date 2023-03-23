@@ -18,8 +18,10 @@ RUN apk --update add wget \
   openssl-dev \
   postgresql-dev \
   bash \
-  && docker-php-ext-install pdo_pgsql pcntl \
-  && rm /var/cache/apk/*
+  && docker-php-ext-install pdo_pgsql pcntl
+
+# INSTALL COMPOSER
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # INSTALL SWOOLE
 RUN apk add --no-cache --virtual .build-deps \
@@ -28,11 +30,10 @@ RUN apk add --no-cache --virtual .build-deps \
   make \
   && pecl install swoole \
   && docker-php-ext-enable swoole \
-  && apk del .build-deps \
-  && rm /var/cache/apk/*
+  && apk del .build-deps
 
-# INSTALL COMPOSER
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN rm /var/cache/apk/*
 
 COPY composer.json composer.lock ./
 
@@ -40,6 +41,6 @@ RUN composer install --no-dev --no-scripts --no-autoloader --no-progress \
     && rm -rf /root/.composer/cache
 
 COPY start-container /usr/local/bin/start-container
-
 RUN chmod +x /usr/local/bin/start-container
+
 ENTRYPOINT [ "start-container" ]

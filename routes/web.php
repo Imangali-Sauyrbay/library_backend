@@ -15,14 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $r = rand(0, 100);
-
     if ($r > 75) {
         return response()->file(storage_path('app/img.jpg'));
     }
-    
+
     if ($r > 50) {
         return response()->file(storage_path('app/arjunphp_laravel.png'));
     }
 
-    return '<h1 style="text-align:center">Hello World with 50% chance!!!</h1>';
+    return '<h1 style="text-align:center">Hello World with 50% chance!!! rand: ' . $r . '</h1>';
 });
