@@ -1,0 +1,20 @@
+[200~use App\Services\DeviceService;
+use App\Services\DeviceService;
+use App\Services\DeviceService;
+DeviceService::getShortDeviceInfo()
+App\Services\DeviceService::getShortDeviceInfo()
+App\Services\DeviceService::getShortDeviceInfo()
+App\Services\DeviceService::getShortDeviceInfo()
+\App\Services\DeviceService::getShortDeviceInfo()
+\App\Services\ModuleService::getSubDirsOfModules('')
+\App\Services\DeviceService::getShortDeviceInfo()
+Str::slug()
+Str::slug('hello My FellOw BroThers)
+Str::slug('hello My FellOw BroThers')
+Str::slug('hello My FellOw BroThers', '.')
+Str::slug('hello My FellOw BroThers', null)
+Str::slug('hello My FellOw BroThers', '-', 'ru')
+Str::slug('hello My FellOw BroThers', '-', 'en')
+Str::slug('Привет мой мастер', '-', 'en')
+Str::slug('Привет мой мастер мен қазақпын', '-', 'en')
+Str::slug('Привет мой мастер мен қазақпын !ӘІҒ;:ҮҰҚӨ', '-', 'en')

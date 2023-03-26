@@ -2,9 +2,9 @@
 
 namespace $NAMESPACE$;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\ApiFormRequest;
 
-class $CLASS$ extends FormRequest
+class $CLASS$ extends ApiFormRequest
 {
     /**
      * Get the validation rules that apply to the request.

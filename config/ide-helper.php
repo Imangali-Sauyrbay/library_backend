@@ -123,6 +123,7 @@ return [
 
     'helper_files' => [
         base_path() . '/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
+        base_path() . '/vendor/nwidart/laravel-modules/src/helpers.php'
     ],
 
     /*
@@ -140,6 +141,7 @@ return [
 
     'model_locations' => [
         'app',
+        'Modules'
     ],
 
     /*
@@ -227,7 +229,8 @@ return [
     |
     */
     'custom_db_types' => [
-
+        'token_device_type' => 'string',
+        'access_token_type' => 'string',
     ],
 
     /*

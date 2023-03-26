@@ -148,4 +148,9 @@ return [
 
     ],
 
+    'types_mapping' => [
+        'token_device_type' => 'string',
+        'access_token_type' => 'string'
+    ]
+
 ];

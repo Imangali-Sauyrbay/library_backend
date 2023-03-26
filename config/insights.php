@@ -20,6 +20,7 @@ use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use SlevomatCodingStandard\Sniffs\ControlStructures\DisallowShortTernaryOperatorSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\UselessConstantTypeHintSniff;
 use SlevomatCodingStandard\Sniffs\ControlStructures\DisallowEmptySniff;
+use SlevomatCodingStandard\Sniffs\Commenting\InlineDocCommentDeclarationSniff;
 
 return [
 
@@ -94,6 +95,7 @@ return [
         UselessConstantTypeHintSniff::class,
         DisallowEmptySniff::class,
         TodoSniff::class,
+        InlineDocCommentDeclarationSniff::class
     ],
 
     'config' => [
