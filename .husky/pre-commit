@@ -9,3 +9,4 @@ then
 else
     php artisan insights --fix --no-interaction
 fi
+git add .

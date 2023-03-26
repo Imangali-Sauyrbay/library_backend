@@ -20,7 +20,7 @@ class UserAuthDatabaseSeeder extends Seeder
             'email' => 'test@gmail.com',
             'lastname' => 'Сауырбай',
             'firstname' => 'Иманғали',
-            'patronymic' => 'Жеңісбекұлы'
+            'patronymic' => 'Жеңісбекұлы',
         ]);
         // $this->call("OthersTableSeeder");
     }

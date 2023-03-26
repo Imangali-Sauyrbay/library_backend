@@ -103,7 +103,8 @@ class AuthController extends Controller
         return now()->addSeconds(RateLimiter::availableIn($key));
     }
 
-    private function getLoginFailResponce($key, $max_attempts) {
+    private function getLoginFailResponce($key, $max_attempts)
+    {
         $attempts_left = $this->getRemainingAttempts($key, $max_attempts);
         return response()
             ->json([
