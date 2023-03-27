@@ -1,0 +1,15 @@
+#!/bin/bash
+
+php /var/www/artisan octane:start --server=swoole --host=0.0.0.0 --port=80 &
+PID1=$!
+php /var/www/artisan queue:work &
+PID2=$!
+php /var/www/artisan schedule:work &
+PID3=$!
+
+wait -n $PID1
+
+kill $PID2 $PID3
+
+
+exit $?

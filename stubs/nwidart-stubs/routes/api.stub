@@ -1,0 +1,14 @@
+<?php
+
+use Illuminate\Http\Request;
+
+// Route::middleware('auth:api')->get('/$LOWER_NAME$', function (Request $request) {
+//    return $request->user();
+// });
+
+// TODO Change to plural!
+Route::prefix('v1/$LOWER_NAME$')->group(function () {
+    Route::get('/', function (Request $request) {
+        return response('$LOWER_NAME$ is working!!!' . $request->ip());
+    });
+});
