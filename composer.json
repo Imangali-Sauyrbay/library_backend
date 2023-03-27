@@ -46,11 +46,9 @@
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "@ide-helpers",
             "@php artisan telescope:publish --ansi"
         ],
         "post-install-cmd": [
-            "@ide-helpers",
             "@php artisan telescope:publish --ansi"
         ],
         "post-root-package-install": [
