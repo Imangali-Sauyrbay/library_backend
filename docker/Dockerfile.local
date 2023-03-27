@@ -23,21 +23,22 @@ RUN apk --update add wget \
 # INSTALL COMPOSER
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# INSTALL SWOOLE
+# INSTALL SWOOLE AND XDEBUG
 RUN apk add --no-cache --virtual .build-deps \
   gcc \
   g++ \
   make \
-  && pecl install swoole \
-  && docker-php-ext-enable swoole \
+  linux-headers \
+  && pecl install swoole xdebug \
+  && docker-php-ext-enable swoole xdebug \
   && apk del .build-deps
 
 
 RUN rm /var/cache/apk/*
 
-COPY . .
+COPY composer.json composer.lock ./
 
-RUN composer install --no-scripts --no-progress \
+RUN composer install --no-scripts --no-dev --no-autoloader --no-progress \
     && rm -rf /root/.composer/cache
 
 COPY start-container /usr/local/bin/start-container
