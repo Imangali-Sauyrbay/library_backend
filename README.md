@@ -11,3 +11,15 @@ echo UID=$(id -u) >> .env && echo GID=$(id -g) >> .env
 ```
 docker-compose up -d --build
 ```
+
+### For prod container:
+Env variables:
+```
+DB_CONNECTION
+DB_HOST
+DB_PORT
+DB_DB
+DB_TEST_DB
+DB_USER
+DB_PASSWORD
+```
