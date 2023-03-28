@@ -1,4 +1,4 @@
-FROM php:8.1.17-fpm-alpine3.17
+FROM phpswoole/swoole:php8.2-alpine
 
 WORKDIR /var/www
 
@@ -23,16 +23,6 @@ RUN apk --update add wget \
 # INSTALL COMPOSER
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# INSTALL SWOOLE
-RUN apk add --no-cache --virtual .build-deps \
-  gcc \
-  g++ \
-  make \
-  && pecl install swoole \
-  && docker-php-ext-enable swoole \
-  && apk del .build-deps
-
-
 RUN rm /var/cache/apk/*
 
 COPY . .
@@ -41,7 +31,9 @@ RUN composer install --no-scripts --no-progress \
     && rm -rf /root/.composer/cache
 
 COPY start-container /usr/local/bin/start-container
-RUN chmod +x /usr/local/bin/start-container
+
+RUN chmod +x /usr/local/bin/start-container \
+  && cp .env.prod .env \
+  && php artisan key:generate
 
 ENTRYPOINT [ "start-container" ]
-
