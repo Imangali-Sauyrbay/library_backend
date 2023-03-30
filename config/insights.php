@@ -8,6 +8,7 @@ use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenNormalClasses;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenPrivateMethods;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenTraits;
 use NunoMaduro\PhpInsights\Domain\Metrics\Architecture\Classes;
+use PHP_CodeSniffer\Standards\Generic\Sniffs\Commenting\TodoSniff;
 use SlevomatCodingStandard\Sniffs\Commenting\UselessFunctionDocCommentSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff;
@@ -19,6 +20,7 @@ use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
 use SlevomatCodingStandard\Sniffs\ControlStructures\DisallowShortTernaryOperatorSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\UselessConstantTypeHintSniff;
 use SlevomatCodingStandard\Sniffs\ControlStructures\DisallowEmptySniff;
+use SlevomatCodingStandard\Sniffs\Commenting\InlineDocCommentDeclarationSniff;
 
 return [
 
@@ -69,7 +71,7 @@ return [
     */
 
     'exclude' => [
-        //  'path/to/directory-or-file'
+        //...App\Services\ModuleService::getSubDirsOfModules('Database')
     ],
 
     'add' => [
@@ -92,6 +94,8 @@ return [
         DisallowShortTernaryOperatorSniff::class,
         UselessConstantTypeHintSniff::class,
         DisallowEmptySniff::class,
+        TodoSniff::class,
+        InlineDocCommentDeclarationSniff::class
     ],
 
     'config' => [

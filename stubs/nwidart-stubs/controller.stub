@@ -1,0 +1,31 @@
+<?php
+
+namespace $CLASS_NAMESPACE$;
+
+use Illuminate\Http\JsonResponse;
+use \Illuminate\Http\Response as Code;
+use Illuminate\Routing\Controller;
+
+class $CLASS$ extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store()
+    {
+    }
+
+    /**
+     * Show the specified resource.
+     */
+    public function show()
+    {
+    }
+}
