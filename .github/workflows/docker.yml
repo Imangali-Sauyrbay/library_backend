@@ -46,7 +46,7 @@ jobs:
           echo "VERSION=${TAG#v}" >> $GITHUB_ENV
 
       - name: Build and Push Latest and Release Image
-        if: github.ref == 'refs/tags/*'
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
         uses: docker/build-push-action@v4
         with:
           context: .
