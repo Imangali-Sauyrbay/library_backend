@@ -3,7 +3,7 @@
 
 npm test
 
-if [ "$(docker ps -a -q -f name=backend_lib)" ] 
+if [ "$(docker ps -q -f name=backend_lib)" ] 
 then
     docker exec -t backend_lib php artisan insights --fix --no-interaction
 else
