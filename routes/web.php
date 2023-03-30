@@ -10,3 +10,7 @@
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/', fn () => '
+<center><h1>S.Imangali</h1></center>
+');
