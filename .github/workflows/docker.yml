@@ -53,5 +53,5 @@ jobs:
           push: true
           tags: |
             ${{ env.DOCKER_REPO }}:latest
-            ${{ env.DOCKER_REPO }}:${ VERSION }
+            ${{ env.DOCKER_REPO }}:${{ env.VERSION }}
           file: docker/Dockerfile
