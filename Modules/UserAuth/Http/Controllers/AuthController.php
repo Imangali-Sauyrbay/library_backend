@@ -31,7 +31,6 @@ class AuthController extends Controller
         }
 
         $this->clearRate($key);
-        $request->session()->regenerate();
 
         /** @var User $user */
         $user = auth()->user();
@@ -42,10 +41,6 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
 
         return response()->json(['success' => true]);
     }
