@@ -1,6 +1,6 @@
 version: '3'
 services:
-  db:
+  pgsql:
     image: postgres:alpine
     restart: unless-stopped
     container_name: postgre_lib
@@ -16,6 +16,18 @@ services:
     networks:
       -  postgre-network
 
+  redis:
+    image: redis:alpine3.17
+    restart: unless-stopped
+    container_name: redis_lib
+    command: redis-server --save 30 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    ports:
+      - '6379:6379'
+    volumes:
+      - './storage/volumes/redis/data:/data'
+    networks:
+      - redis-network
+
   api:
     build:
       context: ./
@@ -27,6 +39,7 @@ services:
       - POSTGRES_DB=library
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=password
+      - REDIS_PASSWORD=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
 
     volumes:
       -  ./:/var/www
@@ -34,9 +47,12 @@ services:
     ports:
       - "8000:80"
     depends_on:
-      - db
+      - pgsql
+      - redis
     networks:
-      -  postgre-network
+      - redis-network
+      - postgre-network
 
 networks:
   postgre-network:
+  redis-network:
