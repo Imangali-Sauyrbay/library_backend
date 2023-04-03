@@ -34,7 +34,7 @@ RUN rm /var/cache/apk/*
 
 COPY composer.json composer.lock ./
 
-RUN composer install --no-scripts --no-dev --no-autoloader --no-progress \
+RUN composer install --no-scripts --no-progress \
     && rm -rf /root/.composer/cache
 
 COPY start-container /usr/local/bin/start-container

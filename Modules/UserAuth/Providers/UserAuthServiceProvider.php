@@ -30,6 +30,13 @@ class UserAuthServiceProvider extends ServiceProvider
     public function boot()
     {
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
+        Sanctum::authenticateAccessTokensUsing(function (PersonalAccessToken $token, $isValid) {
+            if ($isValid) {
+                return true;
+            }
+            return $token->can('remember') && $token->created_at->gt(now()->subYears(1));
+        });
+
         $this->registerConfig();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
 
