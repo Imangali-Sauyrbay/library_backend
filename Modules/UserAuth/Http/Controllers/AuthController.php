@@ -17,7 +17,7 @@ class AuthController extends Controller
 {
     use LimitRate;
 
-    protected int $maxAttempts = 30;
+    protected int $maxAttempts = 3;
     protected int $decaySeconds = 120;
 
     public function login(LoginRequest $request): JsonResponse

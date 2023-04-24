@@ -5,25 +5,27 @@ WORKDIR /var/www
 RUN apk --update add wget \
   curl \
   build-base \
-  libmemcached-dev \
-  libmcrypt-dev \
   libxml2-dev \
   pcre-dev \
   zlib-dev \
   autoconf \
-  cyrus-sasl-dev \
-  libgsasl-dev \
   oniguruma-dev \
   openssl \
   openssl-dev \
   postgresql-dev \
   bash \
-  && docker-php-ext-install pdo_pgsql pcntl
+  poppler-utils \
+  imagemagick \
+  imagemagick-dev \
+  ghostscript \
+  && pecl install imagick \
+  && docker-php-ext-enable imagick \
+  && apk del imagemagick-dev \
+  && docker-php-ext-install pdo_pgsql \
+  && rm -rf /var/cache/apk/*
 
 # INSTALL COMPOSER
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-RUN rm /var/cache/apk/*
 
 COPY . .
 
