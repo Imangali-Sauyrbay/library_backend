@@ -1,26 +1,21 @@
 <?php
 
-namespace Modules\UserAuth\Providers;
+namespace Modules\Library\Providers;
 
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Sanctum\Sanctum;
-use Modules\UserAuth\Entities\PersonalAccessToken;
-use Modules\UserAuth\Entities\User;
-
 // use Illuminate\Database\Eloquent\Factory;
 
-class UserAuthServiceProvider extends ServiceProvider
+class LibraryServiceProvider extends ServiceProvider
 {
     /**
      * @var string $moduleName
      */
-    protected $moduleName = 'UserAuth';
+    protected $moduleName = 'Library';
 
     /**
      * @var string $moduleNameLower
      */
-    protected $moduleNameLower = 'userauth';
+    protected $moduleNameLower = 'library';
 
     /**
      * Boot the application events.
@@ -29,20 +24,8 @@ class UserAuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
-        Sanctum::authenticateAccessTokensUsing(function (PersonalAccessToken $token, $isValid) {
-            if ($isValid) {
-                return true;
-            }
-            return $token->can('remember') && $token->created_at->gt(now()->subYears(1));
-        });
-
         $this->registerConfig();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
-
-        Relation::enforceMorphMap([
-            User::getMorphName() => User::class,
-        ]);
     }
 
     /**

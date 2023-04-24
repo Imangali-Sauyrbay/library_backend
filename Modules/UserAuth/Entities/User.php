@@ -18,7 +18,7 @@ class User extends Authenticatable implements IMorphTableAlias
     use HasFactory, HasApiTokens, HasSlug;
 
     protected $guarded = ['id'];
-    protected $hidden = ['id', 'pivot'];
+    protected $hidden = ['id', 'pivot', 'password', 'remember_token'];
 
     public static function getMorphName(): string
     {

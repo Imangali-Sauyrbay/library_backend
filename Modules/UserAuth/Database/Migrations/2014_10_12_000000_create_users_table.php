@@ -19,6 +19,7 @@ return new class() extends Migration {
             $table->string('email', 64)->unique();
             $table->string('password', 64);
             $table->boolean('is_active')->default(false);
+            $table->rememberToken();
             $table->timestamps();
         });
     }

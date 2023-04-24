@@ -1,0 +1,12 @@
+{
+    "name": "Library",
+    "alias": "library",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Library\\Providers\\LibraryServiceProvider",
+        "Modules\\Library\\Providers\\RouteServiceProvider"
+    ],
+    "files": []
+}
