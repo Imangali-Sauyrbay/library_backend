@@ -32,9 +32,6 @@ COPY . .
 RUN composer install --no-scripts --no-progress \
     && rm -rf /root/.composer/cache
 
-COPY start-container /usr/local/bin/start-container
+RUN cp .env.prod .env
 
-RUN chmod +x /usr/local/bin/start-container \
-  && cp .env.prod .env
-
-ENTRYPOINT [ "start-container" ]
+ENTRYPOINT [ "php", "artisan", "serve"]
