@@ -53,4 +53,4 @@ jobs:
       - name: Build and Test
         run: |
           docker-compose up -d --build
-          docker-compose exec api php artisan test --without-tty
+          docker-compose exec -T api php artisan test --without-tty
