@@ -15,6 +15,10 @@ docker-compose up -d --build
 ### For prod container:
 Env variables:
 ```
+APP_KEY
+APP_URL
+SESSION_DOMAIN
+
 DB_CONNECTION
 DB_HOST
 DB_PORT

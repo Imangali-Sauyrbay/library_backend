@@ -28,6 +28,20 @@ services:
     networks:
       - redis-network
 
+  meili:
+    image: getmeili/meilisearch:v1.1.1
+    restart: unless-stopped
+    container_name: meili_lib
+    command: meilisearch --master-key=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    environment:
+      - http_proxy
+    ports:
+      - '7700:7700'
+    volumes:
+      - ./storage/volumes/meili/data:/meili_data
+    networks:
+      - meili-network
+
   api:
     build:
       context: ./
@@ -40,6 +54,8 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=password
       - REDIS_PASSWORD=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+      - MEILI_KEY=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+      - XDG_CONFIG_HOME=/var/www/.config
 
     volumes:
       -  ./:/var/www
@@ -49,10 +65,14 @@ services:
     depends_on:
       - pgsql
       - redis
+      - meili
     networks:
       - redis-network
       - postgre-network
+      - meili-network
 
 networks:
   postgre-network:
   redis-network:
+  meili-network:
+    driver: bridge

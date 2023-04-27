@@ -35,7 +35,6 @@ RUN composer install --no-scripts --no-progress \
 COPY start-container /usr/local/bin/start-container
 
 RUN chmod +x /usr/local/bin/start-container \
-  && cp .env.prod .env \
-  && php artisan key:generate
+  && cp .env.prod .env
 
 ENTRYPOINT [ "start-container" ]

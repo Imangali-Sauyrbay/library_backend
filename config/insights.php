@@ -17,6 +17,7 @@ use SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff;
 use PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff;
+use SlevomatCodingStandard\Sniffs\Classes\ForbiddenPublicPropertySniff;
 use SlevomatCodingStandard\Sniffs\ControlStructures\DisallowShortTernaryOperatorSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\UselessConstantTypeHintSniff;
 use SlevomatCodingStandard\Sniffs\ControlStructures\DisallowEmptySniff;
@@ -95,7 +96,8 @@ return [
         UselessConstantTypeHintSniff::class,
         DisallowEmptySniff::class,
         TodoSniff::class,
-        InlineDocCommentDeclarationSniff::class
+        InlineDocCommentDeclarationSniff::class,
+        ForbiddenPublicPropertySniff::class
     ],
 
     'config' => [
