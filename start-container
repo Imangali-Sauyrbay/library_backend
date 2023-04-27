@@ -1,10 +1,11 @@
 #!/bin/bash
 set -m
 
-trap 'kill %2; kill %3' SIGINT SIGTERM EXIT
-
 php /var/www/artisan octane:start --server=swoole --host=0.0.0.0 --port=80 &
 php /var/www/artisan schedule:work &
 php /var/www/artisan queue:work --queue=high,default,low &
 
 fg %1
+wait %1
+kill %2
+kill %3
