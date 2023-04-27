@@ -82,6 +82,10 @@ class Page extends Model
             ->pluck(null, 'id');
 
         $items['hits'] = collect($items['hits'])->map(function ($item) use (&$pages) {
+            if (! array_key_exists($item['id'], $pages)) {
+                return null;
+            }
+
             $item['book_slug'] = $pages[$item['id']]['book_slug'];
             unset($item['id']);
             return $item;
