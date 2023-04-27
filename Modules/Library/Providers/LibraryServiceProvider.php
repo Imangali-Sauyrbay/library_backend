@@ -2,7 +2,11 @@
 
 namespace Modules\Library\Providers;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
+use Modules\Library\Entities\Book;
+use Modules\Library\Entities\Library;
+
 // use Illuminate\Database\Eloquent\Factory;
 
 class LibraryServiceProvider extends ServiceProvider
@@ -26,6 +30,11 @@ class LibraryServiceProvider extends ServiceProvider
     {
         $this->registerConfig();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        Relation::enforceMorphMap([
+            Library::getMorphName() => Library::class,
+            Book::getMorphName() => Book::class,
+        ]);
     }
 
     /**

@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\Fileable;
+use App\Models\Imageable;
 use DB;
 use Exception;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Grammars\Grammar;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Fluent;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,6 +27,11 @@ class MigrationServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Relation::enforceMorphMap([
+            Fileable::getMorphName() => Fileable::class,
+            Imageable::getMorphName() => Imageable::class,
+        ]);
+
         Grammar::macro('typeRaw', function (Fluent $column) {
             return $column->get('raw_type');
         });
@@ -57,7 +64,7 @@ class MigrationServiceProvider extends ServiceProvider
                 $dbPlatform->registerDoctrineTypeMapping('_' . $dbType, $doctrineType);
             }
         } catch (Exception $e) {
-            Log::error($e);
+            \Log::info($e);
         }
     }
 

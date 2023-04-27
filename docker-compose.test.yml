@@ -1,0 +1,48 @@
+version: '3'
+services:
+  pgsql:
+    image: postgres:alpine
+    restart: unless-stopped
+    container_name: postgre_lib
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB=library
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./storage/volumes/postgres/data:/var/lib/postgresql/data
+      - ./storage/initial_sql/initial_db.sql:/docker-entrypoint-initdb.d/create_schemas.sql
+    networks:
+      -  postgre-network
+
+  api:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile.test
+    container_name: backend_lib
+    user: ${UID}:${GID}
+    restart: unless-stopped
+    environment:
+      - DB_CONNECTION=pgsql
+      - DB_HOST=pgsql
+      - DB_PORT=5432
+      - DB_DATABASE=library
+      - DB_DATABASE_TEST=test
+      - DB_USERNAME=root
+      - DB_PASSWORD=password
+      - APP_KEY=base64:ytOkTmWhms6iTxqPkksb8z7+TZeqBdrJL1w148CRrRI=
+      - XDG_CONFIG_HOME=/var/www/.config
+
+    volumes:
+      -  ./:/var/www
+      -  ./docker/extend-php.ini:/usr/local/etc/php/conf.d/extend-php.ini
+    ports:
+      - "8000:80"
+    depends_on:
+      - pgsql
+    networks:
+      - postgre-network
+
+networks:
+  postgre-network:

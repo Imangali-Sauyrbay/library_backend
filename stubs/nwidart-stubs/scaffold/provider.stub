@@ -3,6 +3,7 @@
 namespace $NAMESPACE$;
 
 use Illuminate\Support\ServiceProvider;
+// use Illuminate\Database\Eloquent\Relations\Relation;
 // use Illuminate\Database\Eloquent\Factory;
 
 class $CLASS$ extends ServiceProvider
@@ -26,6 +27,12 @@ class $CLASS$ extends ServiceProvider
     {
         $this->registerConfig();
         $this->loadMigrationsFrom(module_path($this->moduleName, '$MIGRATIONS_PATH$'));
+
+        /*
+        Relation::enforceMorphMap([
+            Model::getMorphName() => Model::class,
+        ]);
+        */
     }
 
     /**
