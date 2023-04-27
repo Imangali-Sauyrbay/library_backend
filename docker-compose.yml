@@ -48,7 +48,7 @@ services:
       dockerfile: ./docker/Dockerfile.local
     container_name: backend_lib
     user: ${UID}:${GID}
-    restart: unless-stopped
+    restart: always
     environment:
       - POSTGRES_DB=library
       - POSTGRES_USER=root
