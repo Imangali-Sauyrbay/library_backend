@@ -20,7 +20,10 @@ class BookController extends Controller
     {
         $perPage = 20;
 
-        return Page::searchWithMatches($request->query('search'), $perPage);
+        return Page::searchWithMatches(
+            (string) ($request->query('search') ?? ''),
+            $perPage
+        );
     }
 
     public function cover(Book $book)
