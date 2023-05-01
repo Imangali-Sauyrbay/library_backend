@@ -42,4 +42,14 @@ class User extends Authenticatable implements IMorphTableAlias
     {
         return UserFactory::new();
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function abilities()
+    {
+        return $this->morphToMany(Ability::class, 'abilitiable');
+    }
 }

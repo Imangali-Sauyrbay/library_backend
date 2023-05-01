@@ -23,6 +23,9 @@ class Book extends Model
 
     protected $fillable = [
         'identifier',
+        'lang',
+        'country',
+        'released',
         'title',
         'description',
         'authors',
@@ -80,6 +83,9 @@ class Book extends Model
             'authors' => $this->authors,
             'description' => $this->description,
             'identifier' => $this->identifier,
+            'lang' => $this->lang,
+            'country' => $this->country,
+            'released' => (int) $this->released,
             'updated_at' => $this['updated_at'],
             'created_at' => $this['created_at'],
             'slug' => $this->slug,

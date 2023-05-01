@@ -1,0 +1,27 @@
+<?php
+
+namespace Modules\UserAuth\Entities;
+
+use App\Models\Model;
+
+class Role extends Model
+{
+    public $timestamps = false;
+    protected $guarded = ['id'];
+    protected $hidden = ['id', 'pivot'];
+
+    public static function getMorphName(): string
+    {   
+        return 'Role';
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function abilities()
+    {
+        return $this->morphToMany(Ability::class, 'abilitiable');
+    }
+}

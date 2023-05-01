@@ -15,9 +15,6 @@ return new class() extends Migration {
         Schema::create('libraries', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('displayAddress');
-            $table->decimal('latitude', 11, 8);
-            $table->decimal('longitude', 11, 8);
             $table->string('slug');
             $table->timestamps();
         });

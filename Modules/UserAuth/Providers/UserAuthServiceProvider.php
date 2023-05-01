@@ -3,9 +3,12 @@
 namespace Modules\UserAuth\Providers;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Sanctum\Sanctum;
+use Modules\UserAuth\Entities\Ability;
 use Modules\UserAuth\Entities\PersonalAccessToken;
+use Modules\UserAuth\Entities\Role;
 use Modules\UserAuth\Entities\User;
 
 // use Illuminate\Database\Eloquent\Factory;
@@ -42,6 +45,8 @@ class UserAuthServiceProvider extends ServiceProvider
 
         Relation::enforceMorphMap([
             User::getMorphName() => User::class,
+            Role::getMorphName() => Role::class,
+            Ability::getMorphName() => Ability::class,
         ]);
     }
 
@@ -87,7 +92,7 @@ class UserAuthServiceProvider extends ServiceProvider
     private function getPublishableViewPaths(): array
     {
         $paths = [];
-        foreach (\Config::get('view.paths') as $path) {
+        foreach (Config::get('view.paths') as $path) {
             if (is_dir($path . '/modules/' . $this->moduleNameLower)) {
                 $paths[] = $path . '/modules/' . $this->moduleNameLower;
             }

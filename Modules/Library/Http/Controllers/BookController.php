@@ -37,7 +37,7 @@ class BookController extends Controller
 
     public function pdf(Book $book)
     {
-        if (! \File::exists(storage_path('app/' . $book->eBook->path))) {
+        if (! File::exists(storage_path('app/' . $book->eBook->path))) {
             return response('', 404);
         }
 
