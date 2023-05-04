@@ -3,12 +3,13 @@
 namespace Modules\UserAuth\Http\Controllers;
 
 use App\Traits\LimitRate;
-use Hash;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as Code;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Modules\UserAuth\Entities\Role;
 use Modules\UserAuth\Entities\User;
 use Modules\UserAuth\Http\Requests\LoginRequest;
 use Modules\UserAuth\Http\Requests\RegisterUserRequest;
@@ -58,7 +59,7 @@ class AuthController extends Controller
 
         /** @var User $user */
         $user = User::create($data);
-
+        $user->roles()->sync([Role::where('name', 'user')->firts()->id]);
         Auth::login($user);
 
         return response()->json(

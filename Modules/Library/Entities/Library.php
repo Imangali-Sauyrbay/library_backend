@@ -2,8 +2,10 @@
 
 namespace Modules\Library\Entities;
 
+use App\Models\Address;
 use App\Models\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 use Modules\Library\Database\factories\LibraryFactory;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -13,15 +15,12 @@ use Spatie\Sluggable\SlugOptions;
  */
 class Library extends Model
 {
-    use HasFactory, HasSlug;
+    use HasFactory, HasSlug, Searchable;
 
     protected $guarded = ['id'];
     protected $hidden = ['id', 'pivot'];
     protected $fillable = [
         'title',
-        'displayAddress',
-        'latitude',
-        'longitude',
     ];
 
     public static function getMorphName(): string
@@ -32,6 +31,11 @@ class Library extends Model
     public function books()
     {
         return $this->morphMany(Book::class, 'bookable');
+    }
+
+    public function address()
+    {
+        return $this->morphOne(Address::class, 'addressable');
     }
 
     public function getSlugOptions(): SlugOptions
@@ -45,6 +49,20 @@ class Library extends Model
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function searchableAs()
+    {
+        return 'library_index';
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id' => (int) $this->id,
+            'title' => $this->title,
+            'address' => $this->address,
+        ];
     }
 
     protected static function newFactory()

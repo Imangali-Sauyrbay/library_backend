@@ -19,6 +19,9 @@ return new class() extends Migration {
             $table->string('authors');
             $table->text('description');
             $table->string('identifier');
+            $table->string('country');
+            $table->string('lang');
+            $table->unsignedInteger('released');
             $table->integer('quantity', false, true)->default(1);
             $table->string('slug')->unique();
 

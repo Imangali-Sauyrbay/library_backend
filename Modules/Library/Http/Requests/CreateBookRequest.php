@@ -15,6 +15,9 @@ class CreateBookRequest extends ApiFormRequest
     {
         return [
             'identifier' => 'required|string',
+            'lang' => 'required|string',
+            'country' => 'required|string',
+            'released' => 'required|integer|min:1900|max:' . now()->year,
             'title' => 'required|string',
             'description' => 'required|string',
             'authors' => 'required|string',

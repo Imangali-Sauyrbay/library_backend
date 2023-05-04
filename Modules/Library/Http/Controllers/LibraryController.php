@@ -16,9 +16,8 @@ class LibraryController extends Controller
     public function index(Request $request)
     {
         if ($request->has('query') && ! empty($request->query('query'))) {
-            $query = '%' . $request->query('query', '') . '%';
-            return Library::where('title', 'like', $query)
-                ->orWhere('displayAddress', 'like', $query)
+            $query = $request->query('query', '');
+            return Library::search($query)
                 ->paginate(10);
         }
 
@@ -32,12 +31,12 @@ class LibraryController extends Controller
     {
         $data = $request->validated();
 
-        Library::create([
+        /** @var Library */
+        $lib = Library::create([
             'title' => $data['title'],
-            'displayAddress' => $data['displayName'],
-            'latitude' => $data['coords'][0],
-            'longitude' => $data['coords'][1],
         ]);
+
+        $lib->address()->create($data['address']);
 
         return response('', Response::HTTP_CREATED);
     }

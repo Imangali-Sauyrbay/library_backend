@@ -12,11 +12,11 @@ return new class() extends Migration {
      */
     public function up()
     {
-        Schema::create('libraries', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('slug');
-            $table->timestamps();
+        Schema::create('student_profiles', function (Blueprint $table) {
+            $table->foreignId('user_id')
+                ->unique()
+                ->constrained()
+                ->cascadeOnDelete();
         });
     }
 
@@ -27,6 +27,6 @@ return new class() extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('libraries');
+        Schema::dropIfExists('student_profiles');
     }
 };

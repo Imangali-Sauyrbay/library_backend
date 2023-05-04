@@ -4,6 +4,7 @@ namespace Modules\Library\Entities;
 
 use App\Models\Model;
 use Laravel\Scout\Searchable;
+use Modules\Library\Services\FilterMeilisearchResults;
 use Modules\Library\Services\FormatMeilisearchRawService;
 use Modules\Library\Services\MeilisearchResultGrouping;
 
@@ -16,8 +17,8 @@ class Page extends Model
 
     public $timestamps = false;
 
-    protected $guarded = ['id'];
-    protected $hidden = ['id', 'pivot'];
+    protected $guarded = [];
+    protected $hidden = ['pivot'];
     protected $fillable = ['page', 'content'];
 
     public static function getMorphName(): string
@@ -56,15 +57,17 @@ class Page extends Model
 
         $items = $raw->items();
 
-        $queryWords = count(explode(' ', $query) ?: ['']);
-        $queryWords = max($queryWords, 1);
-
         MeilisearchResultGrouping::
-        groupCloseEnoughResult($items['hits'], 50, 'content', $perPage, $queryWords);
+        groupCloseEnoughResult($items['hits'], 10, 'content');
 
         FormatMeilisearchRawService::formatRawItems($items);
+
+        $items['hits'] =
+        FilterMeilisearchResults::filterEmpties($items['hits'], 'content');
+
         $books = [];
         static::formatItems($items, $books);
+        $items['hits'] = array_values($items['hits']->all());
 
         return [
             ...$items,
@@ -76,7 +79,7 @@ class Page extends Model
     {
         $ids = collect($items['hits'])->pluck('id');
         $pages = Page::whereIn('id', $ids)
-            ->with('book')
+            ->with(['book', 'book.bookable', 'book.bookable.address'])
             ->select(['id', 'book_slug'])
             ->get()
             ->pluck(null, 'id');

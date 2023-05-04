@@ -20,8 +20,8 @@ RUN apk --update add wget \
   ghostscript \
   && pecl install imagick \
   && docker-php-ext-enable imagick \
-  && apk del imagemagick-dev \
   && docker-php-ext-install pdo_pgsql \
+  && apk del imagemagick-dev \
   && rm -rf /var/cache/apk/*
 
 # INSTALL COMPOSER

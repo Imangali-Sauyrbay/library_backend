@@ -3,6 +3,7 @@
 namespace Modules\Library\Http\Requests;
 
 use App\Http\Requests\ApiFormRequest;
+use App\Models\Address;
 
 class CreateLibraryRequest extends ApiFormRequest
 {
@@ -15,20 +16,7 @@ class CreateLibraryRequest extends ApiFormRequest
     {
         return [
             'title' => 'required|string|min:3',
-            'displayName' => 'required|string|min:3',
-            'coords' => ['required', 'array', 'size:2', function ($attribute, $value, $fail) {
-                $lat = $value[0];
-                $lng = $value[1];
-
-                if ($this->isValidNumber($lat, -90, 90)) {
-                    $fail($attribute);
-                }
-
-                if ($this->isValidNumber($lng, -180, 180)) {
-                    $fail($attribute);
-                }
-            },
-            ],
+            ...Address::getAddressRules('address.'),
         ];
     }
 
@@ -40,10 +28,5 @@ class CreateLibraryRequest extends ApiFormRequest
     public function authorize()
     {
         return true;
-    }
-
-    private function isValidNumber($number, $min, $max)
-    {
-        return ! is_numeric($number) || $number < $min || $number > $max;
     }
 }
