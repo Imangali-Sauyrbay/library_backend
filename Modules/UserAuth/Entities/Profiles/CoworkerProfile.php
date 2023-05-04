@@ -5,6 +5,9 @@ namespace Modules\UserAuth\Entities\Profiles;
 use App\Models\Model;
 use Illuminate\Foundation\Auth\User;
 
+/**
+ * @mixin IdeHelperCoworkerProfile
+ */
 class CoworkerProfile extends Model
 {
     public $timestamps = false;
@@ -12,7 +15,7 @@ class CoworkerProfile extends Model
     protected $hidden = ['id', 'pivot'];
 
     public static function getMorphName(): string
-    {   
+    {
         return 'CoworkerProfile';
     }
 

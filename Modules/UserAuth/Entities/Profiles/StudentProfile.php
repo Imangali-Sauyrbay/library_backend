@@ -1,9 +1,13 @@
 <?php
 
-namespace Modules\UserAuth\Entities;
+namespace Modules\UserAuth\Entities\Profiles;
 
 use App\Models\Model;
+use Modules\UserAuth\Entities\User;
 
+/**
+ * @mixin IdeHelperStudentProfile
+ */
 class StudentProfile extends Model
 {
     public $timestamps = false;
@@ -11,7 +15,12 @@ class StudentProfile extends Model
     protected $hidden = ['id', 'pivot'];
 
     public static function getMorphName(): string
-    {   
-        return 'ReaderProfile';
+    {
+        return 'StudentProfile';
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

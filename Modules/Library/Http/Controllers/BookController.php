@@ -67,6 +67,9 @@ class BookController extends Controller
             'description' => $data['description'],
             'authors' => $data['authors'],
             'quantity' => $data['quantity'],
+            'country' => $data['country'],
+            'lang' => $data['lang'],
+            'released' => $data['released'],
         ]);
 
         if (isset($data['pdf'])) {

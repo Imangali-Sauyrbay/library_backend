@@ -5,6 +5,9 @@ namespace Modules\UserAuth\Entities\Profiles;
 use App\Models\Model;
 use Modules\UserAuth\Entities\User;
 
+/**
+ * @mixin IdeHelperAdminProfile
+ */
 class AdminProfile extends Model
 {
     public $timestamps = false;
@@ -12,7 +15,7 @@ class AdminProfile extends Model
     protected $hidden = ['id', 'pivot'];
 
     public static function getMorphName(): string
-    {   
+    {
         return 'AdminProfile';
     }
 

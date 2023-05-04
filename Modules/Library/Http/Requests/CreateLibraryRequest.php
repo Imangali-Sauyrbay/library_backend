@@ -16,7 +16,7 @@ class CreateLibraryRequest extends ApiFormRequest
     {
         return [
             'title' => 'required|string|min:3',
-            ...Address::getAddressRules('address.')
+            ...Address::getAddressRules('address.'),
         ];
     }
 
@@ -28,10 +28,5 @@ class CreateLibraryRequest extends ApiFormRequest
     public function authorize()
     {
         return true;
-    }
-
-    private function isValidNumber($number, $min, $max)
-    {
-        return ! is_numeric($number) || $number < $min || $number > $max;
     }
 }

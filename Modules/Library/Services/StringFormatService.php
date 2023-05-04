@@ -19,7 +19,14 @@ class StringFormatService
         $cropLength,
         $minCountForTrim = 5
     ) {
-        $arr = explode(' ', mb_substr($text, $start - $cropLength, $len + ($cropLength * 2)));
+        $arr = explode(
+            ' ',
+            substr(
+                $text,
+                max($start - $cropLength, 0),
+                min($start + $len + ($cropLength * 2), mb_strlen($text))
+            )
+        );
 
         if (count($arr) > $minCountForTrim) {
             array_pop($arr);

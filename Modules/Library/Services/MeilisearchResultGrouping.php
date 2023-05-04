@@ -8,6 +8,7 @@ class MeilisearchResultGrouping extends BaseGrouping
     {
         foreach ($hits as &$hit) {
             $matches = &$hit['_matchesPosition'];
+
             if (! isset($matches[$field])) {
                 continue;
             }

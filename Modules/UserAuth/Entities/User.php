@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\UserAuth\Database\factories\UserFactory;
+use Modules\UserAuth\Entities\Profiles\AdminProfile;
+use Modules\UserAuth\Entities\Profiles\CoworkerProfile;
+use Modules\UserAuth\Entities\Profiles\StudentProfile;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -38,11 +41,6 @@ class User extends Authenticatable implements IMorphTableAlias
         return 'slug';
     }
 
-    protected static function newFactory()
-    {
-        return UserFactory::new();
-    }
-
     public function roles()
     {
         return $this->belongsToMany(Role::class);
@@ -51,5 +49,25 @@ class User extends Authenticatable implements IMorphTableAlias
     public function abilities()
     {
         return $this->morphToMany(Ability::class, 'abilitiable');
+    }
+
+    public function adminProfile()
+    {
+        return $this->hasOne(AdminProfile::class);
+    }
+
+    public function studentProfile()
+    {
+        return $this->hasOne(StudentProfile::class);
+    }
+
+    public function coworkerProfile()
+    {
+        return $this->hasOne(CoworkerProfile::class);
+    }
+
+    protected static function newFactory()
+    {
+        return UserFactory::new();
     }
 }

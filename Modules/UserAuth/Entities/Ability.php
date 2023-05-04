@@ -4,7 +4,9 @@ namespace Modules\UserAuth\Entities;
 
 use App\Models\Model;
 
-
+/**
+ * @mixin IdeHelperAbility
+ */
 class Ability extends Model
 {
     public $timestamps = false;
@@ -12,15 +14,17 @@ class Ability extends Model
     protected $hidden = ['id', 'pivot'];
 
     public static function getMorphName(): string
-    {   
+    {
         return 'Abilities';
     }
 
-    public function roles() {
+    public function roles()
+    {
         return $this->morphedByMany(Role::class, 'abilitiable');
     }
 
-    public function users() {
+    public function users()
+    {
         return $this->morphedByMany(User::class, 'abilitiable');
     }
 }

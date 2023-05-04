@@ -20,7 +20,7 @@ class Library extends Model
     protected $guarded = ['id'];
     protected $hidden = ['id', 'pivot'];
     protected $fillable = [
-        'title'
+        'title',
     ];
 
     public static function getMorphName(): string
@@ -51,11 +51,6 @@ class Library extends Model
         return 'slug';
     }
 
-    protected static function newFactory()
-    {
-        return LibraryFactory::new();
-    }
-
     public function searchableAs()
     {
         return 'library_index';
@@ -66,7 +61,12 @@ class Library extends Model
         return [
             'id' => (int) $this->id,
             'title' => $this->title,
-            'address' => $this->address
+            'address' => $this->address,
         ];
+    }
+
+    protected static function newFactory()
+    {
+        return LibraryFactory::new();
     }
 }

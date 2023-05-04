@@ -1,48 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Helpers;
 
-use App\Models\Helpers\AddressRules;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-/**
- * @mixin IdeHelperAddress
- */
-class Address extends Model
+class BaseAddressRules
 {
-    use HasFactory;
-
-    protected $fillable = [
-        'amenity',
-        'displayName',
-        'lat',
-        'lng',
-        'shop',
-        'building',
-        'house_number',
-        'landuse',
-        'aeroway',
-        'railway',
-        'road',
-        'municipality',
-        'neighbourhood',
-        'city_district',
-        'city',
-        'hamlet',
-        'village',
-        'town',
-        'county',
-        'suburb',
-        'state',
-        'state_district',
-        'ISO3166-2-lvl4',
-        'postcode',
-        'country',
-        'country_code',
-    ];
-
-    private static $rules = [
+    protected static $rules = [
         'amenity' => 'nullable|string',
         'displayName' => 'nullable|string',
         'shop' => 'nullable|string',
@@ -69,13 +31,8 @@ class Address extends Model
         'country_code' => 'nullable|string|min:2',
     ];
 
-    public function addressables()
+    protected static function isValidNumber($number, $min, $max)
     {
-        return $this->morphTo();
-    }
-
-    public static function getAddressRules($prefix = ''): array
-    {
-        return AddressRules::getRules($prefix);
+        return is_numeric($number) && $number >= $min && $number <= $max;
     }
 }

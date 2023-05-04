@@ -10,19 +10,16 @@ class HitFormatter
         $start = $match['start'];
         $len = $match['length'];
 
-        $start_bytes = mb_strlen(substr($hit['content'], 0, $start));
-
-        $m = mb_substr($hit['content'], $start_bytes, $len);
-
+        $m = substr($hit['content'], $start, $len * 2);
         $m = StringFormatService::clearText($m);
-
+        $m = mb_substr($m, 0, -1);
         $all['match'] = $m;
 
         $text = StringFormatService::getCroppedText(
             $hit['content'],
-            $start_bytes,
+            $start,
             $len,
-            100
+            50
         ) ?: '';
         $all['text'] = StringFormatService::clearText($text);
         return $all;

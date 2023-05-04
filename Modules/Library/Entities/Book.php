@@ -37,9 +37,9 @@ class Book extends Model
         return 'Book';
     }
 
-    public function holder()
+    public function bookable()
     {
-        return $this->morphTo();
+        return $this->morphTo('bookable');
     }
 
     public function pages()
