@@ -2,8 +2,8 @@
 set -m
 
 php /var/www/artisan octane:start --server=swoole --host=0.0.0.0 --port=80 &
-php /var/www/artisan schedule:work &
-php /var/www/artisan queue:work --queue=high,default,low &
+php /var/www/artisan schedule:work > /dev/null 2>&1 &
+php /var/www/artisan queue:work --queue=high,default,low > /dev/null 2>&1 &
 
 fg %1
 wait %1

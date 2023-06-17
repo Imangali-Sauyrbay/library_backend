@@ -66,6 +66,35 @@ class User extends Authenticatable implements IMorphTableAlias
         return $this->hasOne(CoworkerProfile::class);
     }
 
+    public function records()
+    {
+        return $this->hasMany(Record::class);
+    }
+
+    private function isRolesContain(string $role) {
+        return in_array($role, $this->roles->pluck('name'));
+    }
+
+    public function isUser() {
+        return $this->isRolesContain('user');
+    }
+
+    public function isStudent() {
+        return $this->isRolesContain('student');
+    }
+
+    public function isCoworker() {
+        return $this->isRolesContain('coworker');
+    }
+
+    public function isAdmin() {
+        return $this->isRolesContain('admin');
+    }
+
+    public function registrationLink() {
+        return $this->belongsTo(RegistrationLink::class);
+    }
+
     protected static function newFactory()
     {
         return UserFactory::new();

@@ -14,10 +14,6 @@ class RegisterUserRequest extends ApiFormRequest
     public function rules()
     {
         return [
-            'firstname' => 'required|string|max:64',
-            'lastname' => 'required|string|max:64',
-            'patronymic' => 'required|string|max:64',
-            'name' => 'required|string|min:6',
             'email' => 'required|email',
             'password' => 'required|string|min:6',
         ];

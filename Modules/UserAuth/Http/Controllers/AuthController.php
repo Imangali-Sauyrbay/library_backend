@@ -2,6 +2,7 @@
 
 namespace Modules\UserAuth\Http\Controllers;
 
+use App\Services\CheckUnfilledFields;
 use App\Traits\LimitRate;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -36,6 +37,8 @@ class AuthController extends Controller
                 'message' => 'Credentials not match',
             ]);
         }
+
+
         $request->session()->regenerate();
         $this->clearRate($key);
 
@@ -46,20 +49,29 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        $guards = array_keys(config('auth.guards'));
+
+        foreach ($guards as $guard) {
+            $guard = app()['auth']->guard($guard);
+
+            if ($guard instanceof \Illuminate\Auth\SessionGuard) {
+                $guard->logout();
+            }
+        }
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return response()->json(['success' => true]);
     }
 
-    public function registerUser(RegisterUserRequest $register)
+    public function register(RegisterUserRequest $register)
     {
         $data = $register->validated();
         $data['password'] = Hash::make($data['password']);
 
         /** @var User $user */
         $user = User::create($data);
-        $user->roles()->sync([Role::where('name', 'user')->firts()->id]);
+        $role = $register->has('role') ? $register->input('role') : 'user';
+        $user->roles()->sync([Role::where('name', $role)->first()->id]);
         Auth::login($user);
 
         return response()->json(
@@ -71,8 +83,18 @@ class AuthController extends Controller
         );
     }
 
-    public function me(Request $request): JsonResponse
+    public function me(): JsonResponse
     {
-        return response()->json(['user' => $request->user()]);
+        $user = User::with(
+            ['roles', 'adminProfile', 'studentProfile', 'coworkerProfile']
+        )->findOrFail(auth()->user()->id);
+
+        $unfilled = CheckUnfilledFields::getUnfilledFields($user);
+
+        if(!empty($unfilled)) {
+            return CheckUnfilledFields::getResponse($unfilled);
+        }
+
+        return response()->json($user);
     }
 }

@@ -24,6 +24,11 @@ class Role extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function registrationLinks()
+    {
+        return $this->hasMany(RegistrationLink::class);
+    }
+
     public function abilities()
     {
         return $this->morphToMany(Ability::class, 'abilitiable');
