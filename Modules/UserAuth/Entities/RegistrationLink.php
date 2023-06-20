@@ -5,12 +5,21 @@ namespace Modules\UserAuth\Entities;
 use App\Models\Model;
 use App\Services\ProvideModelsService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
+/**
+ * @mixin IdeHelperRegistrationLink
+ */
 class RegistrationLink extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'use_count',
+        'expires',
+        'uuid'
+    ];
 
     protected $casts = [
         'expires' => 'datetime'
@@ -21,27 +30,20 @@ class RegistrationLink extends Model
         return 'RegistrationLink';
     }
 
-    public function getSlugOptions(): SlugOptions {
-        return SlugOptions::create()
-            ->generateSlugsFrom(['uuid'])
-            ->saveSlugsTo('slug')
-            ->slugsShouldBeNoLongerThan(250);
-    }
-
     public function getRouteKeyName()
     {
-        return 'slug';
+        return 'uuid';
     }
 
-    public function users() {
+    public function users(): HasMany {
         return $this->hasMany(User::class);
     }
 
-    public function library() {
+    public function library(): BelongsTo {
         return $this->belongsTo(ProvideModelsService::getLibraryClass());
     }
 
-    public function role() {
+    public function role(): BelongsTo {
         return $this->belongsTo(Role::class);
     }
 }

@@ -4,6 +4,7 @@ use App\Services\ProvideModelsService;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Modules\UserAuth\Entities\Role;
 
 return new class extends Migration
 {
@@ -15,7 +16,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('registration_links', function (Blueprint $table) {
-            $table->uuid('uuid')->primary();
+            $table->id();
+
+            $table->uuid('uuid');
 
             $table->integer('use_count');
 

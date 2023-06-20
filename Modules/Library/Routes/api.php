@@ -4,12 +4,12 @@
 //    return $request->user();
 // });
 
-Route::prefix('v1/library')->group(function () {
+Route::prefix('library')->group(function () {
     Route::get('/', 'LibraryController@index');
     Route::post('/', 'LibraryController@store');
 });
 
-Route::prefix('v1/books')->group(function () {
+Route::prefix('books')->group(function () {
     Route::get('/', 'BookController@index');
     Route::post('/', 'BookController@store');
     Route::get('/{book}', 'BookController@show');

@@ -53,9 +53,9 @@ class MigrationServiceProvider extends ServiceProvider
 
     private function addToDBAllTypes()
     {
-        if (App::runningInConsole()) {
-            return;
-        }
+        // if (App::runningInConsole()) {
+        //     return;
+        // }
 
         try {
             // Establishes a connection to the database

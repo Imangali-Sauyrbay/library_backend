@@ -3,6 +3,7 @@
 namespace Modules\UserAuth\Entities\Profiles;
 
 use App\Models\Model;
+use App\Services\ProvideModelsService;
 use Illuminate\Foundation\Auth\User;
 
 /**
@@ -10,9 +11,8 @@ use Illuminate\Foundation\Auth\User;
  */
 class CoworkerProfile extends Model
 {
+    protected $primaryKey = 'user_id';
     public $timestamps = false;
-    protected $guarded = ['id'];
-    protected $hidden = ['id', 'pivot'];
 
     public static function getMorphName(): string
     {
@@ -22,5 +22,10 @@ class CoworkerProfile extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function library()
+    {
+        return $this->belongsTo(ProvideModelsService::getLibraryClass());
     }
 }

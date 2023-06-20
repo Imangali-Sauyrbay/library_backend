@@ -15,7 +15,7 @@ class RegisterUserRequest extends ApiFormRequest
     {
         return [
             'email' => 'required|email',
-            'password' => 'required|string|min:6',
+            'password' => 'required|confirmed|string|min:6',
         ];
     }
 
@@ -37,6 +37,7 @@ class RegisterUserRequest extends ApiFormRequest
             'password.required' => 'password.required',
             'password.string' => 'password.string',
             'password.min' => 'password.min:6',
+            'password.confirmed' => 'password.confirmed',
             'name.required' => 'name.required',
             'name.string' => 'name.string',
             'name.min' => 'name.min:6',

@@ -15,20 +15,19 @@ class UserAuthDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $defaultRoles = ['user', 'admin', 'student', 'coworker'];
+        $defaultRoles = Role::ROLES;
 
         foreach ($defaultRoles as $role) {
             Role::create(['name' => $role]);
         }
 
-        $defaultAbilities = [
-            'can_create_book',
-            'can_create_library',
-        ];
+        // $defaultAbilities = [
+        //     'can_create_book',
+        //     'can_create_library',
+        // ];
 
-        foreach ($defaultAbilities as $ability) {
-            Ability::create(['name' => $ability]);
-        }
-        // $this->call("OthersTableSeeder");
+        // foreach ($defaultAbilities as $ability) {
+        //     Ability::create(['name' => $ability]);
+        // }
     }
 }

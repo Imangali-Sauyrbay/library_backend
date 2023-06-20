@@ -10,6 +10,7 @@ use Modules\UserAuth\Entities\User;
  */
 class AdminProfile extends Model
 {
+    protected $primaryKey = 'user_id';
     public $timestamps = false;
     protected $guarded = ['id'];
     protected $hidden = ['id', 'pivot'];

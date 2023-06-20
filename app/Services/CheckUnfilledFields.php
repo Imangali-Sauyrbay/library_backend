@@ -35,8 +35,11 @@ class CheckUnfilledFields
             $tableColumns = \Schema::getColumnListing($profileTable);
             foreach ($tableColumns as $column) {
                 if (empty($profile->{$column})) {
+                    if(in_array($column, $user->getHidden()))
+                        continue;
+
                     $columnType = \Schema::getColumnType($profileTable, $column);
-                    $unfilledFields[$column] = $columnType;
+                    $unfilledFields[] = [$column, $columnType];
                 }
             }
         }
@@ -45,6 +48,6 @@ class CheckUnfilledFields
     }
 
     public static function getResponse($unfilledFields) {
-        return response()->json(['unfilled_fields' => $unfilledFields], Response::HTTP_UNAUTHORIZED);
+        return response()->json(['unfilled_fields' => $unfilledFields], Response::HTTP_EXPECTATION_FAILED);
     }
 }

@@ -21,7 +21,23 @@ class User extends Authenticatable implements IMorphTableAlias
     use HasFactory, HasApiTokens, HasSlug;
 
     protected $guarded = ['id'];
-    protected $hidden = ['id', 'pivot', 'password', 'remember_token'];
+    protected $hidden = [
+        'id',
+        'pivot',
+        'password',
+        'remember_token',
+        'is_active',
+        'registration_link_id',
+        'remember_token'
+    ];
+
+    protected $fillable = [
+        'password',
+        'email',
+        'firstname',
+        'lastname',
+        'patronymic'
+    ];
 
     public static function getMorphName(): string
     {
@@ -72,7 +88,7 @@ class User extends Authenticatable implements IMorphTableAlias
     }
 
     private function isRolesContain(string $role) {
-        return in_array($role, $this->roles->pluck('name'));
+        return $this->roles->pluck('name')->contains($role);
     }
 
     public function isUser() {
