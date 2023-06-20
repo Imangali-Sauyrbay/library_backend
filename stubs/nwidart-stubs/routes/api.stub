@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 // });
 
 // TODO Change to plural!
-Route::prefix('v1/$LOWER_NAME$')->group(function () {
+Route::prefix('$LOWER_NAME$')->group(function () {
     Route::get('/', function (Request $request) {
         return response('$LOWER_NAME$ is working!!!' . $request->ip());
     });

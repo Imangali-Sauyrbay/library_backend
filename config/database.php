@@ -1,5 +1,6 @@
 <?php
 
+use Doctrine\DBAL\Types\Types;
 use Illuminate\Support\Str;
 
 return [
@@ -172,8 +173,9 @@ return [
     ],
 
     'types_mapping' => [
-        'token_device_type' => 'string',
-        'access_token_type' => 'string'
+        'token_device_type' => Types::STRING,
+        'access_token_type' => Types::STRING,
+        'user_roles_type' => Types::STRING
     ]
 
 ];

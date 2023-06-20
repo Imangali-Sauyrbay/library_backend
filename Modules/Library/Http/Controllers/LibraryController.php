@@ -36,9 +36,11 @@ class LibraryController extends Controller
             'title' => $data['title'],
         ]);
 
-        $lib->address()->create($data['address']);
+        if(array_key_exists('address', $data)) {
+            $lib->address()->create($data['address']);
+        }
 
-        return response('', Response::HTTP_CREATED);
+        return response()->json($lib, Response::HTTP_CREATED);
     }
 
     /**

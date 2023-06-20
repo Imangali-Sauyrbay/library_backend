@@ -4,13 +4,19 @@ namespace Modules\UserAuth\Entities\Profiles\Configs;
 
 class CoworkerConfig implements ProfileConfigContract
 {
-    public function getFillable(): array
+    public static function getFillable(): array
     {
         return [
         ];
     }
 
-    public function getRules(): array
+    public static function getRules(): array
+    {
+        return [
+        ];
+    }
+
+    public static function getMessages(): array
     {
         return [
         ];

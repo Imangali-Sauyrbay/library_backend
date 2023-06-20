@@ -9,6 +9,18 @@ use App\Models\Model;
  */
 class Role extends Model
 {
+    public const USER = 'user';
+    public const STUDENT = 'student';
+    public const COWORKER = 'coworker';
+    public const ADMIN = 'admin';
+
+    public const ROLES = [
+        Role::USER,
+        Role::STUDENT,
+        Role::COWORKER,
+        Role::ADMIN
+    ];
+
     public $timestamps = false;
     protected $guarded = ['id'];
     protected $hidden = ['id', 'pivot'];
@@ -22,6 +34,11 @@ class Role extends Model
     public function users()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function registrationLinks()
+    {
+        return $this->hasMany(RegistrationLink::class);
     }
 
     public function abilities()

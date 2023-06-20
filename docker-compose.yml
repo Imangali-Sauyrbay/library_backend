@@ -36,6 +36,22 @@ services:
     networks:
       - meili-network
 
+  soketi:
+    image: 'quay.io/soketi/soketi:latest-16-alpine'
+    environment:
+        SOKETI_DEBUG: '1'
+        SOKETI_METRICS_SERVER_PORT: '9601'
+        SOKETI_DB_REDIS_HOST: redis
+        SOKETI_DB_REDIS_PORT: 6379
+        SOKETI_DB_REDIS_DB: 2
+        SOKETI_DB_REDIS_PASSWORD: ${REDIS_PASSWORD}
+    ports:
+        - '${SOKETI_PORT:-6001}:6001'
+        - '${SOKETI_METRICS_SERVER_PORT:-9601}:9601'
+    networks:
+        - soketi-network
+        - redis-network
+
   api:
     build:
       context: ./
@@ -60,13 +76,16 @@ services:
       - pgsql
       - redis
       - meili
+      - soketi
     networks:
       - redis-network
       - postgre-network
       - meili-network
+      - soketi-network
 
 networks:
   postgre-network:
   redis-network:
+  soketi-network:
   meili-network:
     driver: bridge

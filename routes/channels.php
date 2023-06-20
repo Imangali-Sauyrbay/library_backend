@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('records', function (Modules\UserAuth\Entities\User $user) {
+    if (! $user || ! $user->isAdmin() || ! $user->isCoworker()) {
+        return false;
+    }
+
+    return true;
 });

@@ -14,12 +14,8 @@ class RegisterUserRequest extends ApiFormRequest
     public function rules()
     {
         return [
-            'firstname' => 'required|string|max:64',
-            'lastname' => 'required|string|max:64',
-            'patronymic' => 'required|string|max:64',
-            'name' => 'required|string|min:6',
             'email' => 'required|email',
-            'password' => 'required|string|min:6',
+            'password' => 'required|confirmed|string|min:6',
         ];
     }
 
@@ -41,6 +37,7 @@ class RegisterUserRequest extends ApiFormRequest
             'password.required' => 'password.required',
             'password.string' => 'password.string',
             'password.min' => 'password.min:6',
+            'password.confirmed' => 'password.confirmed',
             'name.required' => 'name.required',
             'name.string' => 'name.string',
             'name.min' => 'name.min:6',

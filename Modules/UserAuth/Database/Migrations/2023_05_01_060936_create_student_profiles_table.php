@@ -17,6 +17,15 @@ return new class() extends Migration {
                 ->unique()
                 ->constrained()
                 ->cascadeOnDelete();
+
+            $table->string('faculty')->nullable();
+            $table->string('department')->nullable();
+            $table->string('group')->nullable();
+
+            $table->string('IIN')->nullable();
+
+            $table->timestamp('admission_at')->nullable();
+            $table->timestamp('graduation_at')->nullable();
         });
     }
 
